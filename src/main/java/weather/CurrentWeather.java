@@ -2,15 +2,20 @@ package weather;
 
 public class CurrentWeather implements Weather {
     String city;
+    String countryCode;
     double coordinates;
 
     public CurrentWeather(WeatherRequest request) {
         this.city = request.getCity();
-        this.coordinates = request.getCoordinates();
+        this.countryCode = request.getCountryCode();
     }
 
     public String getCity() {
         return city;
+    }
+
+    public String getCountryCode() {
+        return this.countryCode;
     }
 
     public double getCoordinates() {

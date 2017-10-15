@@ -2,15 +2,21 @@ package weather;
 
 public class WeatherRequest {
     private String city;
+    private String countryCode;
     private double coordinates;
 
-    public WeatherRequest(String city, double coordinates) {
+
+    public WeatherRequest(String city, String countryCode) {
         this.city = city;
-        this.coordinates = coordinates;
+        this.countryCode = countryCode;
     }
 
     public String getCity() {
         return this.city;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
     }
 
     public double getCoordinates() {

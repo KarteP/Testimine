@@ -12,7 +12,7 @@ public class ThreeDaysWeatherTests {
     @Test
     public void testIfWeatherForecastForThreeDaysIsGiven() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", 1.00);
+            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
             ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
             assertEquals(3, threeDaysWeather.threeDaysMap.size());
         } catch (Exception e) {
@@ -23,7 +23,7 @@ public class ThreeDaysWeatherTests {
     @Test
     public void testIfWeatherForecastForRightDaysIsGiven() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", 1.0);
+            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
             ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
             assertEquals(3, threeDaysWeather.threeDaysMap.size());
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class ThreeDaysWeatherTests {
     @Test
     public void testLowestAndHighestTemperaturesAreGivenForThreeDays() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", 1.0);
+            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
 
             ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
             for (String date: threeDaysWeather.threeDaysMap.keySet()) {
