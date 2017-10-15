@@ -1,19 +1,21 @@
 package connection;
 
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class HttpConnection {
-    private String url;
-
-    public HttpConnection(String url) {
-        this.url = url;
-    }
-
-    public String getUrl() {
-        return this.url;
-    }
 
     public static HttpURLConnection makeUrlConnection(String url) {
-        return null;
+        HttpURLConnection connection = null;
+        try {
+            URL urlStr = new URL(url);
+            connection = (HttpURLConnection) urlStr.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type", "application/json");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return connection;
     }
+
 }
