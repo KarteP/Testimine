@@ -5,7 +5,6 @@ public class WeatherRequest {
     private String countryCode;
     private double coordinates;
 
-
     public WeatherRequest(String city, String countryCode) {
         this.city = city;
         this.countryCode = countryCode;
