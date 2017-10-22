@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import connection.HttpConnection;
 import weather.CurrentWeather;
+import weather.ThreeDaysWeather;
 import weather.WeatherRequest;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -52,51 +53,15 @@ public class WeatherApplication {
         JsonElement jsonElementCurrentWeather = jsonParser.parse(contentCurrentWeather);
         JsonObject jsonObjectCurrentWeather = jsonElementCurrentWeather.getAsJsonObject();
 
-
-        JsonObject jsonObject = (JsonObject)jsonParser.parse(content3Days);
-        System.out.println(jsonObject);
-
-
-
-        JsonArray jsonWeatherArray = jsonObject.getAsJsonObject().getAsJsonArray("list");
-        String currentDate = LocalDate.now().toString();
-        double temp_min = 100.0;
-        double temp_max = 0.0;
-        int forecastsInDay = 8;
-
-        Map<String, ArrayList<Double>> threeDaysMap = new HashMap();
-
-        for (int i = 0; i < 8; i++) {
-            String date = jsonWeatherArray.get(i).getAsJsonObject().get("dt_txt").getAsString().split(" ")[0];
-            if (date.equals(currentDate)) {
-                forecastsInDay++;
-            } else {
-                System.out.println(date);
-                JsonElement j = jsonWeatherArray.get(i).getAsJsonObject().get("main");
-                double temp = j.getAsJsonObject().get("temp").getAsDouble();
-                System.out.println(temp);
-                if (temp < temp_min) {
-                    temp_min = temp;
-                }
-                if (temp > temp_max) {
-                    temp_max = temp;
-                }
-            }
-            ArrayList<Double> temperatures = new ArrayList<Double>();
-            temperatures.add(temp_min);
-            temperatures.add(temp_max);
-            threeDaysMap.put(date, temperatures);
-        }
-
-
-        System.out.println("Maximum temperature: " + temp_max);
-        System.out.println("Minimum temperature: " + temp_min);
-
-        /**
         WeatherRequest request = new WeatherRequest("Tallinn", "EE");
+
         CurrentWeather currentWeather = new CurrentWeather(request);
         currentWeather.setJsonObjectCurrentWeather(jsonObjectCurrentWeather);
         currentWeather.getCurrentTemperature();
-        **/
+
+        JsonObject jsonObject3Days = (JsonObject)jsonParser.parse(content3Days);
+        ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
+        threeDaysWeather.setJsonObject3DaysWeather(jsonObject3Days);
+        threeDaysWeather.get3DaysTemperatures();
     }
 }
