@@ -1,3 +1,4 @@
+
 import org.junit.Test;
 import weather.ThreeDaysWeather;
 import weather.WeatherRequest;
@@ -9,6 +10,7 @@ import static org.junit.Assert.fail;
 
 public class ThreeDaysWeatherTests {
 
+    /**
     @Test
     public void testIfWeatherForecastForThreeDaysIsGiven() {
         try {
@@ -20,6 +22,7 @@ public class ThreeDaysWeatherTests {
         }
     }
 
+
     @Test
     public void testIfWeatherForecastForRightDaysIsGiven() {
         try {
@@ -30,6 +33,7 @@ public class ThreeDaysWeatherTests {
             fail("Failure cause: " + e.getMessage());
         }
     }
+     **/
 
     @Test
     public void testLowestAndHighestTemperaturesAreGivenForThreeDays() {

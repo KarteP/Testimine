@@ -66,7 +66,7 @@ public class CurrentWeatherTests {
         try {
             WeatherRequest request = new WeatherRequest("Tallinn", "EE");
             CurrentWeather currentWeather = new CurrentWeather(request);
-            // assertTrue(currentWeather.getTemperature() instanceof double);
+            // assertTrue(currentWeather.getCurrentTemperature() instanceof double);
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
