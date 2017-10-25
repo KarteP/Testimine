@@ -1,6 +1,5 @@
 package weather;
 
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -9,13 +8,11 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class ThreeDaysWeather extends CurrentWeather {
-    final String degrees = "\u00b0C";
+    private final String degrees = "\u00b0C";
+
     public Map<String, ArrayList<Double>> threeDaysMap = new HashMap();
     private ArrayList<String> days = new ArrayList<String>();
     private JsonObject jsonObject3DaysWeather;
-    private String day1 = "";
-    private String day2 = "";
-    private String day3 = "";
 
     public ThreeDaysWeather(WeatherRequest request) {
         super(request);
@@ -81,13 +78,25 @@ public class ThreeDaysWeather extends CurrentWeather {
                     temperatures.add(temp_min);
                     temperatures.add(temp_max);
                     threeDaysMap.put(date, temperatures);
+                    if (threeDaysMapSizeIsBiggerThan3()) {
+                        threeDaysMap.remove(date);
+                        break;
+                    }
                     temp_min = 100.0;
                     temp_max = 0.0;
                 }
             }
         }
-        day1 = days.get(0);
-        day2 = days.get(1);
-        day3 = days.get(2);
+        System.out.println(threeDaysMap);
+    }
+
+    public boolean threeDaysMapSizeIsBiggerThan3() {
+        return threeDaysMap.size() > 3;
+    }
+
+    public String createThreeDaysWeatherApiUrl() {
+        String url = "http://api.openweathermap.org/data/2.5/forecast?q="+getCity()+","+getCountryCode()+"" +
+                "&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d";
+        return url;
     }
 }

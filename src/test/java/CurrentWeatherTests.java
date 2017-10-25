@@ -1,3 +1,4 @@
+import com.sun.deploy.util.StringUtils;
 import connection.HttpConnection;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,10 +14,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CurrentWeatherTests {
+    private static WeatherRequest request;
+    private static CurrentWeather currentWeather;
 
     @BeforeClass
     public static void setUpForForAllTests(){
-
+        request = new WeatherRequest("Tallinn", "EE");
+        currentWeather = new CurrentWeather(request);
     }
 
     @Before
@@ -31,20 +35,20 @@ public class CurrentWeatherTests {
     @Test
     public void testCityNameInRightFormat() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
             assertEquals(request.getCity(), "Tallinn");
-            assertTrue(request.getCity() instanceof String);
         } catch (Exception e) {
             fail("Failure cause:  " + e.getMessage());
         }
     }
 
     @Test
-    public void testCityCoordinatesForRightCity() {
+    public void testCityCoordinatesInRightFormat() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
-            CurrentWeather currentWeather = new CurrentWeather(request);
-            assertEquals(currentWeather.getCoordinates(), request.getCoordinates(), 0.001);
+            currentWeather.setJsonObjectCurrentWeather(HttpConnection.getWeatherInfoAsJson("http://api." +
+                    "openweathermap.org/data/2.5/weather?q=Tallinn," +
+                    "EE&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d"));
+            currentWeather.setCoordinates();
+            assertEquals("24.75:59.44", currentWeather.getCoordinates());
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
@@ -53,30 +57,27 @@ public class CurrentWeatherTests {
     @Test
     public void testIfWeatherForecastIsForRightCity() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
-            CurrentWeather currentWeather = new CurrentWeather(request);
             assertEquals(currentWeather.getCity(), request.getCity());
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
     }
 
+    /**
     @Test
     public void testIfTemperatureInRightFormat() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
             CurrentWeather currentWeather = new CurrentWeather(request);
-            // assertTrue(currentWeather.getCurrentTemperature() instanceof double);
+            //assertTrue(currentWeather.getCurrentTemperature() instanceof double);
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
     }
+     **/
 
     @Test
     public void testIfWeatherForecastForThisTimeIsGiven() {
         try {
-            WeatherRequest request = new WeatherRequest("Tallinn", "EE");
-            CurrentWeather currentWeather = new CurrentWeather(request);
             assertEquals(currentWeather.getCurrentDate(), request.getCurrentDate());
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());

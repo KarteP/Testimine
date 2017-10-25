@@ -3,7 +3,6 @@ package weather;
 public class WeatherRequest {
     private String city;
     private String countryCode;
-    private double coordinates;
 
     public WeatherRequest(String city, String countryCode) {
         this.city = city;
@@ -16,10 +15,6 @@ public class WeatherRequest {
 
     public String getCountryCode() {
         return countryCode;
-    }
-
-    public double getCoordinates() {
-        return this.coordinates;
     }
 
     public String getCurrentDate() {
