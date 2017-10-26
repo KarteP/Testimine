@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import java.time.LocalDate;
 import java.util.*;
 
-public class ThreeDaysWeather extends CurrentWeather {
+public class ThreeDaysWeather extends WeatherReport {
     private final String degrees = "\u00b0C";
 
     public Map<String, ArrayList<Double>> threeDaysMap = new HashMap();
@@ -16,6 +16,11 @@ public class ThreeDaysWeather extends CurrentWeather {
 
     public ThreeDaysWeather(WeatherRequest request) {
         super(request);
+    }
+
+    public void setJsonObject3DaysWeather(JsonObject jsonObject3DaysWeather) {
+        this.jsonObject3DaysWeather = jsonObject3DaysWeather;
+
     }
 
     public ArrayList<Double> getLowestAndHighestTemperaturesForThatDay(String date) {
@@ -32,12 +37,7 @@ public class ThreeDaysWeather extends CurrentWeather {
         return Collections.max(temperatures);
     }
 
-    public void setJsonObject3DaysWeather(JsonObject jsonObject3DaysWeather) {
-        this.jsonObject3DaysWeather = jsonObject3DaysWeather;
-
-    }
-
-    public void get3DaysTemperatures() {
+    public String get3DaysTemperatures() {
         put3DaysTemperaturesInMap();
         String result = "";
         for (String day : days) {
@@ -45,7 +45,7 @@ public class ThreeDaysWeather extends CurrentWeather {
             result += "Minimum temperature: " + getLowestTemperature(day) + degrees + "\n";
             result += "Maximum temperature: " + getHighestTemperature(day) + degrees + "\n";
         }
-        System.out.println(result);
+        return result;
     }
 
     public void put3DaysTemperaturesInMap() {
@@ -87,16 +87,14 @@ public class ThreeDaysWeather extends CurrentWeather {
                 }
             }
         }
-        System.out.println(threeDaysMap);
     }
 
-    public boolean threeDaysMapSizeIsBiggerThan3() {
+    private boolean threeDaysMapSizeIsBiggerThan3() {
         return threeDaysMap.size() > 3;
     }
 
     public String createThreeDaysWeatherApiUrl() {
-        String url = "http://api.openweathermap.org/data/2.5/forecast?q="+getCity()+","+getCountryCode()+"" +
+        return "http://api.openweathermap.org/data/2.5/forecast?q="+city+","+countryCode+"" +
                 "&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d";
-        return url;
     }
 }

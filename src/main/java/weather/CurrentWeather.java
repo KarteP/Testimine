@@ -2,26 +2,24 @@ package weather;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import connection.HttpConnection;
 
-public class CurrentWeather implements Weather {
+import java.io.IOException;
+
+public class CurrentWeather extends WeatherReport {
     private final String degrees = "\u00b0C";
 
-    private String city;
-    private String countryCode;
     private String coordinates;
     private JsonObject jsonObjectCurrentWeather;
 
-    public CurrentWeather(WeatherRequest request) {
-        this.city = request.getCity();
-        this.countryCode = request.getCountryCode();
+    public CurrentWeather(WeatherRequest request) throws IOException {
+        super(request);
+        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(createCurrentWeatherApiUrl());
+        setJsonObjectCurrentWeather(currentWeatherInfo);
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public String getCountryCode() {
-        return this.countryCode;
+    public void setJsonObjectCurrentWeather(JsonObject jsonObject) {
+        this.jsonObjectCurrentWeather = jsonObject;
     }
 
     public String getCoordinates() {
@@ -36,23 +34,14 @@ public class CurrentWeather implements Weather {
         this.coordinates = xCoordinate + ":" + yCoordinate;
     }
 
-    public void getCurrentTemperature() {
+    public String getCurrentTemperature() {
         JsonObject jsonObject = (JsonObject) jsonObjectCurrentWeather.get("main");
         JsonElement jsonTemp = jsonObject.getAsJsonObject().get("temp");
-        System.out.println("Current temperature: " + jsonTemp + degrees);
-    }
-
-    public String getCurrentDate() {
-        return "01.10.2017";
-    }
-
-    public void setJsonObjectCurrentWeather(JsonObject jsonObject) {
-        this.jsonObjectCurrentWeather = jsonObject;
+        return "Current temperature: " + jsonTemp + degrees;
     }
 
     public String createCurrentWeatherApiUrl() {
-        String url = "http://api.openweathermap.org/data/2.5/weather?q="+getCity()+","+getCountryCode()+"" +
+        return "http://api.openweathermap.org/data/2.5/weather?q="+city+","+countryCode+"" +
                 "&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d";
-        return url;
     }
 }

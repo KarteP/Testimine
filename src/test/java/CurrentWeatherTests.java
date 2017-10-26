@@ -1,4 +1,3 @@
-import com.sun.deploy.util.StringUtils;
 import connection.HttpConnection;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -7,10 +6,8 @@ import weather.CurrentWeather;
 import weather.WeatherRequest;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class CurrentWeatherTests {
@@ -18,7 +15,7 @@ public class CurrentWeatherTests {
     private static CurrentWeather currentWeather;
 
     @BeforeClass
-    public static void setUpForForAllTests(){
+    public static void setUpForForAllTests() throws IOException {
         request = new WeatherRequest("Tallinn", "EE");
         currentWeather = new CurrentWeather(request);
     }
@@ -35,7 +32,7 @@ public class CurrentWeatherTests {
     @Test
     public void testCityNameInRightFormat() {
         try {
-            assertEquals(request.getCity(), "Tallinn");
+            assertEquals(request.city, "Tallinn");
         } catch (Exception e) {
             fail("Failure cause:  " + e.getMessage());
         }
@@ -57,7 +54,7 @@ public class CurrentWeatherTests {
     @Test
     public void testIfWeatherForecastIsForRightCity() {
         try {
-            assertEquals(currentWeather.getCity(), request.getCity());
+            assertEquals(currentWeather.city, request.city);
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
@@ -72,15 +69,8 @@ public class CurrentWeatherTests {
         } catch (Exception e) {
             fail("Failure cause: " + e.getMessage());
         }
+        WeatherAdvirsor advisorMock = mock(WeatherAdvisor.class);
+        when(advisorMock.getCurrenttemp()).thenReturn(1.5);
     }
      **/
-
-    @Test
-    public void testIfWeatherForecastForThisTimeIsGiven() {
-        try {
-            assertEquals(currentWeather.getCurrentDate(), request.getCurrentDate());
-        } catch (Exception e) {
-            fail("Failure cause: " + e.getMessage());
-        }
-    }
 }
