@@ -3,7 +3,9 @@ package weather;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import connection.HttpConnection;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -14,8 +16,10 @@ public class ThreeDaysWeather extends WeatherReport {
     private ArrayList<String> days = new ArrayList<String>();
     private JsonObject jsonObject3DaysWeather;
 
-    public ThreeDaysWeather(WeatherRequest request) {
+    public ThreeDaysWeather(WeatherRequest request) throws IOException {
         super(request);
+        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(createThreeDaysWeatherApiUrl());
+        setJsonObject3DaysWeather(currentWeatherInfo);
     }
 
     public void setJsonObject3DaysWeather(JsonObject jsonObject3DaysWeather) {

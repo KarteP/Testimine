@@ -1,0 +1,12 @@
+Tallinn
+Current temperature: 5°C
+2017-11-10
+Minimum temperature: 6.4°C
+Maximum temperature: 7.55°C
+2017-11-11
+Minimum temperature: 3.79°C
+Maximum temperature: 6.49°C
+2017-11-12
+Minimum temperature: 1.13°C
+Maximum temperature: 5.54°C
+

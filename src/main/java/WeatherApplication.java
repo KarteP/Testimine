@@ -1,42 +1,64 @@
-import com.google.gson.JsonObject;
-import com.sun.org.apache.xpath.internal.SourceTree;
-import connection.HttpConnection;
 import weather.CurrentWeather;
 import weather.ThreeDaysWeather;
 import weather.WeatherRequest;
 
-import javax.sound.midi.Soundbank;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class WeatherApplication {
 
     public static void main(String[] args) throws Exception {
 
-        Scanner scanner = new Scanner("");
+        Scanner scanner = new Scanner(System.in);
         String cityName = "";
+        String currentWeatherInfo = "";
+        String threeDaysWeatherInfo = "";
+
         while (true) {
-            System.out.println("Enter city name:");
-            if (!scanner.hasNextLine()) {
-                break;
-            }
+            System.out.println("Enter city name: ");
             if (scanner.hasNextLine()) {
                 cityName = scanner.next();
+                System.out.println(cityName);
+
+                WeatherRequest request = new WeatherRequest(cityName, "EE");
+
+                CurrentWeather currentWeather = new CurrentWeather(request);
+                currentWeatherInfo = currentWeather.getCurrentTemperature();
+                System.out.println(currentWeatherInfo);
+
+                ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
+                threeDaysWeatherInfo = threeDaysWeather.get3DaysTemperatures();
+                System.out.println(threeDaysWeatherInfo);
                 break;
+            } else {
+                System.out.println("Enter city name:");
             }
         }
-        System.out.println(cityName);
+        scanner.close();
 
-        WeatherRequest request = new WeatherRequest("Tallinn", "EE");
+        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        CurrentWeather currentWeather = new CurrentWeather(request);
-        System.out.println(currentWeather.getCurrentTemperature());
+        Path path = Paths.get("src/main/java/weather/input.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write(cityName);
+        } catch (IOException e) {
+            System.out.println("IOException:" + e.getMessage());
+            e.printStackTrace();
+        }
 
+        Path pathForWeatherInfo = Paths.get("src/main/java/weather/output.txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(pathForWeatherInfo)) {
+            writer.write(cityName + "\n");
+            writer.write(currentWeatherInfo + "\n");
+            writer.write(threeDaysWeatherInfo + "\n");
+        } catch (IOException e) {
+            System.out.println("IOException:" + e.getMessage());
+            e.printStackTrace();
+        }
 
-        String urlThreeDaysWeather = "http://api.openweathermap.org/data/2.5/forecast?q=Tallinn,EE&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d";
-        JsonObject threeDaysWeatherInfo = HttpConnection.getWeatherInfoAsJson(urlThreeDaysWeather);
-
-        ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
-        threeDaysWeather.setJsonObject3DaysWeather(threeDaysWeatherInfo);
-        System.out.println(threeDaysWeather.get3DaysTemperatures());
     }
 }

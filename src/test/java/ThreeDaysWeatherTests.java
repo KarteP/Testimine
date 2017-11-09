@@ -18,7 +18,7 @@ public class ThreeDaysWeatherTests {
     private static String threeDaysTemperatures;
 
     @BeforeClass
-    public static void setUpForTest() {
+    public static void setUpForTest() throws IOException {
         request = new WeatherRequest("Tallinn", "EE");
         threeDaysWeather = new ThreeDaysWeather(request);
         try {

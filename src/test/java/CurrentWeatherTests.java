@@ -72,5 +72,16 @@ public class CurrentWeatherTests {
         WeatherAdvirsor advisorMock = mock(WeatherAdvisor.class);
         when(advisorMock.getCurrenttemp()).thenReturn(1.5);
     }
-     **/
+
+    @Test
+    public void testSomething() {
+        List mockedList = mock(List.class);
+
+        mockedList.add("one");
+        mockedList.clear();
+
+        verify(mockedList).add("one");
+        verify(mockedList).clear();
+    }
+    **/
 }
