@@ -9,4 +9,6 @@ public class WeatherReport {
         this.city = request.city;
         this.countryCode = request.countryCode;
     }
+
+
 }

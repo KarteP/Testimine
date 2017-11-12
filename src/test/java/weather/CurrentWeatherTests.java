@@ -1,9 +1,9 @@
+package weather;
+
 import connection.HttpConnection;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import weather.CurrentWeather;
-import weather.WeatherRequest;
 
 import java.io.IOException;
 

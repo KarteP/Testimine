@@ -1,5 +1,5 @@
 import console.ConsoleReader;
-import files.WeatherDataWriter;
+import files.FileWriter;
 import weather.CurrentWeather;
 import weather.ThreeDaysWeather;
 import weather.WeatherRequest;
@@ -21,8 +21,10 @@ public class WeatherApplication {
         String threeDaysWeatherInfo = threeDaysWeather.get3DaysTemperatures();
         System.out.println(threeDaysWeatherInfo);
 
-        WeatherDataWriter weatherDataWriter = new WeatherDataWriter();
-        weatherDataWriter.writeCityNameToFile(cityName);
-        weatherDataWriter.writeWeatherInfoToFile(cityName, currentWeatherInfo, threeDaysWeatherInfo);
+        FileWriter fileWriter = new FileWriter();
+        fileWriter.writeToFile(cityName, "input.txt");
+
+        String cityWeatherInfo = cityName + "\n" + currentWeatherInfo + "\n" + threeDaysWeatherInfo + "\n";
+        fileWriter.writeToFile(cityWeatherInfo, cityName + ".txt");
     }
 }

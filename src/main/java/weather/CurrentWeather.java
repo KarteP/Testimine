@@ -3,6 +3,7 @@ package weather;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import connection.HttpConnection;
+import connection.WeatherApiUrl;
 
 import java.io.IOException;
 
@@ -11,10 +12,12 @@ public class CurrentWeather extends WeatherReport {
 
     private String coordinates;
     private JsonObject jsonObjectCurrentWeather;
+    private WeatherApiUrl weatherApiUrl;
 
     public CurrentWeather(WeatherRequest request) throws IOException {
         super(request);
-        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(createCurrentWeatherApiUrl());
+        weatherApiUrl = new WeatherApiUrl(request);
+        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getCurrentWeatherApiUrl());
         setJsonObjectCurrentWeather(currentWeatherInfo);
     }
 
@@ -38,10 +41,5 @@ public class CurrentWeather extends WeatherReport {
         JsonObject jsonObject = (JsonObject) jsonObjectCurrentWeather.get("main");
         JsonElement jsonTemp = jsonObject.getAsJsonObject().get("temp");
         return "Current temperature: " + jsonTemp + degrees;
-    }
-
-    public String createCurrentWeatherApiUrl() {
-        return "http://api.openweathermap.org/data/2.5/weather?q="+city+","+countryCode+"" +
-                "&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d";
     }
 }
