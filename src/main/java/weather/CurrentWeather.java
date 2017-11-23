@@ -16,8 +16,10 @@ public class CurrentWeather extends WeatherReport {
 
     public CurrentWeather(WeatherRequest request) throws IOException {
         super(request);
-        weatherApiUrl = new WeatherApiUrl(request);
-        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getCurrentWeatherApiUrl());
+        this.weatherApiUrl = new WeatherApiUrl(request);
+        HttpConnection connection = new HttpConnection();
+        JsonObject currentWeatherInfo = connection.getWeatherInfoAsJson(this.weatherApiUrl.getCurrentWeatherApiUrl());
+        //JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getCurrentWeatherApiUrl());
         setJsonObjectCurrentWeather(currentWeatherInfo);
     }
 
@@ -37,9 +39,13 @@ public class CurrentWeather extends WeatherReport {
         this.coordinates = xCoordinate + ":" + yCoordinate;
     }
 
-    public String getCurrentTemperature() {
+    public String getCurrentTemperatureString() {
         JsonObject jsonObject = (JsonObject) jsonObjectCurrentWeather.get("main");
         JsonElement jsonTemp = jsonObject.getAsJsonObject().get("temp");
         return "Current temperature: " + jsonTemp + degrees;
+    }
+
+    public String getCityCoordinatesString() {
+        return "Coordinates " + getCoordinates();
     }
 }

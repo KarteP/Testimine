@@ -10,7 +10,7 @@ public class FileWriterTests {
     @Test
     public void testDataIsWrittenToFile() {
         FileWriter mockedFileWriter = mock(FileWriter.class);
-        mockedFileWriter.writeToFile("Tallinn", "input.txt");
-        verify(mockedFileWriter).writeToFile("Tallinn", "input.txt");
+        mockedFileWriter.writeToFile("Tallinn", "userinput.txt");
+        verify(mockedFileWriter).writeToFile("Tallinn", "userinput.txt");
     }
 }

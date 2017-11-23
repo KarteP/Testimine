@@ -13,23 +13,24 @@ import java.util.*;
 public class ThreeDaysWeather extends WeatherReport {
     private static final String degrees = "\u00b0C";
 
-    private ArrayList<DayWeather> dayWeathers = new ArrayList<>();
+    public ArrayList<DayWeather> dayWeathers = new ArrayList<>();
     private JsonObject jsonObject3DaysWeather;
     private WeatherApiUrl weatherApiUrl;
 
     public ThreeDaysWeather(WeatherRequest request) throws IOException {
         super(request);
-        weatherApiUrl = new WeatherApiUrl(request);
-        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getThreeDaysWeatherApiUrl());
+        this.weatherApiUrl = new WeatherApiUrl(request);
+        HttpConnection connection = new HttpConnection();
+        JsonObject currentWeatherInfo = connection.getWeatherInfoAsJson(this.weatherApiUrl.getThreeDaysWeatherApiUrl());
+        //JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getThreeDaysWeatherApiUrl());
         setJsonObject3DaysWeather(currentWeatherInfo);
     }
 
     public void setJsonObject3DaysWeather(JsonObject jsonObject3DaysWeather) {
         this.jsonObject3DaysWeather = jsonObject3DaysWeather;
-
     }
 
-    public String get3DaysTemperatures() {
+    public String get3DaysTemperaturesString() {
         putDayWeathersInList();
         String result = "";
 
@@ -80,9 +81,5 @@ public class ThreeDaysWeather extends WeatherReport {
 
     private boolean dayWeathersListSizeIsBiggerThan3() {
         return dayWeathers.size() > 3;
-    }
-
-    public List<DayWeather> getDayWeathersList() {
-        return dayWeathers;
     }
 }

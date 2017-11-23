@@ -1,20 +1,11 @@
 package weather;
 
-import connection.HttpConnection;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.time.LocalDate;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 public class ThreeDaysWeatherTests {
     private static WeatherRequest request;
     private static ThreeDaysWeather threeDaysWeather;
     private static String threeDaysTemperaturesString;
 
+    /**
     @BeforeClass
     public static void setUpForTest() throws IOException {
         request = new WeatherRequest("Tallinn", "EE");
@@ -23,7 +14,7 @@ public class ThreeDaysWeatherTests {
             threeDaysWeather.setJsonObject3DaysWeather(HttpConnection.getWeatherInfoAsJson(
                     "http://api.openweathermap.org/data/2.5/forecast?q=Tallinn,EE&units=" +
                             "metric&APPID=8142ab303ab91d4449a4e5f5685de78d"));
-            threeDaysTemperaturesString = threeDaysWeather.get3DaysTemperatures();
+            threeDaysTemperaturesString = threeDaysWeather.get3DaysTemperaturesString();
         } catch (IOException e) {
             e.printStackTrace();
         }

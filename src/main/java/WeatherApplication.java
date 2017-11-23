@@ -14,17 +14,20 @@ public class WeatherApplication {
         WeatherRequest request = new WeatherRequest(cityName, "EE");
 
         CurrentWeather currentWeather = new CurrentWeather(request);
-        String currentWeatherInfo = currentWeather.getCurrentTemperature();
-        System.out.println(currentWeatherInfo);
+        String cityCoordinates = currentWeather.getCityCoordinatesString();
+        String currentWeatherInfo = currentWeather.getCurrentTemperatureString();
 
         ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request);
-        String threeDaysWeatherInfo = threeDaysWeather.get3DaysTemperatures();
-        System.out.println(threeDaysWeatherInfo);
+        String threeDaysWeatherInfo = threeDaysWeather.get3DaysTemperaturesString();
 
         FileWriter fileWriter = new FileWriter();
-        fileWriter.writeToFile(cityName, "input.txt");
+        fileWriter.writeToFile(cityName, "userinput.txt");
 
-        String cityWeatherInfo = cityName + "\n" + currentWeatherInfo + "\n" + threeDaysWeatherInfo + "\n";
+        String cityWeatherInfo = cityName + "\n"
+                + cityCoordinates + "\n"
+                + currentWeatherInfo + "\n"
+                + threeDaysWeatherInfo + "\n";
+        System.out.println(cityWeatherInfo);
         fileWriter.writeToFile(cityWeatherInfo, cityName + ".txt");
     }
 }
