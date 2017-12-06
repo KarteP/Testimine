@@ -1,88 +1,56 @@
 package weather;
 
-import org.junit.Before;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class CurrentWeatherTests {
+    private static final String CURRENT_TEMP_STRING = "Current temperature: 1°C";
+    private static final String CITY = "Tallinn";
     private static WeatherRequest request;
-    private static CurrentWeather currentWeather;
+    private static CurrentWeather mockedCurrentWeather;
+    private static Path path  = Paths.get("src/main/java/files/currentWeatherJson.txt");
+
+    private static JsonObject currentWeatherJson;
 
     @BeforeClass
     public static void setUpForForAllTests() throws IOException {
         request = new WeatherRequest("Tallinn", "EE");
-        currentWeather = new CurrentWeather(request);
-    }
 
-    @Before
-    public void setUpForTest() {
+        JsonParser parser = new JsonParser();
+        String jsonString = Files.readAllLines(path).get(0);
+        currentWeatherJson = parser.parse(jsonString).getAsJsonObject();
 
-    }
-
-    public void testApiOutputInRightFormat() {
+        mockedCurrentWeather = mock(CurrentWeather.class);
 
     }
 
-    @Test
-    public void testCityNameInRightFormat() {
-        try {
-            assertEquals(request.city, "Tallinn");
-        } catch (Exception e) {
-            fail("Failure cause:  " + e.getMessage());
-        }
-    }
-
-    /**
     @Test
     public void testCityCoordinatesInRightFormat() {
-        try {
-            currentWeather.setJsonObjectCurrentWeather(HttpConnection.getWeatherInfoAsJson("http://api." +
-                    "openweathermap.org/data/2.5/weather?q=Tallinn," +
-                    "EE&units=metric&APPID=8142ab303ab91d4449a4e5f5685de78d"));
-            currentWeather.setCoordinates();
-            assertEquals("24.75:59.44", currentWeather.getCoordinates());
-        } catch (Exception e) {
-            fail("Failure cause: " + e.getMessage());
-        }
+        when(mockedCurrentWeather.getCityCoordinatesString()).thenReturn("24.75:59.44");
+        assertEquals("24.75:59.44", mockedCurrentWeather.getCityCoordinatesString());
     }
-     **/
+
 
     @Test
     public void testIfWeatherForecastIsForRightCity() {
-        try {
-            assertEquals(currentWeather.city, request.city);
-        } catch (Exception e) {
-            fail("Failure cause: " + e.getMessage());
-        }
+        when(mockedCurrentWeather.city).thenReturn(CITY);
+        assertEquals(request.city, mockedCurrentWeather.city);
     }
 
-    /**
     @Test
     public void testIfTemperatureInRightFormat() {
-        try {
-            CurrentWeather currentWeather = new CurrentWeather(request);
-            //assertTrue(currentWeather.getCurrentTemperatureString() instanceof double);
-        } catch (Exception e) {
-            fail("Failure cause: " + e.getMessage());
-        }
-        WeatherAdvirsor advisorMock = mock(WeatherAdvisor.class);
-        when(advisorMock.getCurrenttemp()).thenReturn(1.5);
+        when(mockedCurrentWeather.getCurrentTemperatureString()).thenReturn(CURRENT_TEMP_STRING);
+        assertEquals(CURRENT_TEMP_STRING, mockedCurrentWeather.getCurrentTemperatureString());
     }
-
-    @Test
-    public void testSomething() {
-        List mockedList = mock(List.class);
-
-        mockedList.add("one");
-        mockedList.clear();
-
-        verify(mockedList).add("one");
-        verify(mockedList).clear();
-    }
-    **/
 }

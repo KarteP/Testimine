@@ -7,7 +7,7 @@ import connection.WeatherApiUrl;
 
 import java.io.IOException;
 
-public class CurrentWeather extends WeatherReport {
+public class CurrentWeather extends Weather {
     private final String degrees = "\u00b0C";
 
     private String coordinates;
@@ -17,9 +17,7 @@ public class CurrentWeather extends WeatherReport {
     public CurrentWeather(WeatherRequest request) throws IOException {
         super(request);
         this.weatherApiUrl = new WeatherApiUrl(request);
-        HttpConnection connection = new HttpConnection();
-        JsonObject currentWeatherInfo = connection.getWeatherInfoAsJson(this.weatherApiUrl.getCurrentWeatherApiUrl());
-        //JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getCurrentWeatherApiUrl());
+        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(this.weatherApiUrl.getCurrentWeatherApiUrl());
         setJsonObjectCurrentWeather(currentWeatherInfo);
     }
 

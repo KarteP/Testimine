@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-public class ThreeDaysWeather extends WeatherReport {
+public class ThreeDaysWeather extends Weather {
     private static final String degrees = "\u00b0C";
 
     public ArrayList<DayWeather> dayWeathers = new ArrayList<>();
@@ -35,9 +35,9 @@ public class ThreeDaysWeather extends WeatherReport {
         String result = "";
 
         for (DayWeather dayWeather : dayWeathers) {
-            result += dayWeather.getDate() + "\n";
-            result += "Minimum temperature: " + dayWeather.getMinTemp() + degrees + "\n";
-            result += "Maximum temperature: " + dayWeather.getMaxTemp() + degrees + "\n";
+            result += dayWeather.date + "\n";
+            result += "Minimum temperature: " + dayWeather.minTemp + degrees + "\n";
+            result += "Maximum temperature: " + dayWeather.maxTemp + degrees + "\n";
         }
         return result;
     }

@@ -11,7 +11,7 @@ public class WeatherReportTests {
     @Test
     public void testWeatherReport() {
         WeatherRequest request = new WeatherRequest(CITY_NAME, COUNTRY_CODE);
-        WeatherReport report = new WeatherReport(request);
+        Weather report = new Weather(request);
         assertEquals(CITY_NAME, request.city);
         assertEquals(COUNTRY_CODE, request.countryCode);
     }
