@@ -1,12 +1,12 @@
 Tallinn
-Current temperature: 3°C
-2017-11-13
-Minimum temperature: 3.35°C
-Maximum temperature: 5.55°C
-2017-11-14
-Minimum temperature: 3.29°C
-Maximum temperature: 5.29°C
-2017-11-15
-Minimum temperature: 3.55°C
-Maximum temperature: 6.82°C
-
+Coordinates 24.75:59.44
+Current temperature: 1.0°C
+2017-12-07
+Minimum temperature: -0.14°C
+Maximum temperature: 2.02°C
+2017-12-08
+Minimum temperature: 4.02°C
+Maximum temperature: 5.1°C
+2017-12-09
+Minimum temperature: 1.15°C
+Maximum temperature: 4.34°C

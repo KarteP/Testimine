@@ -4,10 +4,8 @@ import java.util.Scanner;
 
 public class ConsoleReader {
 
-    public String getCityNameFromUserInput() {
-        //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    public String getCityNameFromUserInput(Scanner scanner) {
         String cityName = "";
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Enter city name: ");
             if (scanner.hasNextLine()) {

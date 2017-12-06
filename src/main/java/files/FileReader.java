@@ -8,15 +8,17 @@ import java.util.List;
 
 public class FileReader {
 
-    public String readFromFile(String fileName) {
+    public List<String> readFromFile(String fileName) {
         List<String> lines;
         Path path = Paths.get("src/main/java/files/" + fileName);
         try {
             lines = Files.readAllLines(path);
-            return lines.get(0);
+            return lines;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
+
+
 }

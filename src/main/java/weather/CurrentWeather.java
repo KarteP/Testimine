@@ -2,48 +2,44 @@ package weather;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import connection.HttpConnection;
-import connection.WeatherApiUrl;
-
-import java.io.IOException;
 
 public class CurrentWeather extends Weather {
-    private final String degrees = "\u00b0C";
+    private static final String DEGREES = "\u00b0C";
 
-    private String coordinates;
+    public String coordinates;
     private JsonObject jsonObjectCurrentWeather;
-    private WeatherApiUrl weatherApiUrl;
+    private double currentTemp;
 
-    public CurrentWeather(WeatherRequest request) throws IOException {
+    public CurrentWeather(WeatherRequest request, JsonObject jsonObjectCurrentWeather) {
         super(request);
-        this.weatherApiUrl = new WeatherApiUrl(request);
-        JsonObject currentWeatherInfo = HttpConnection.getWeatherInfoAsJson(this.weatherApiUrl.getCurrentWeatherApiUrl());
-        setJsonObjectCurrentWeather(currentWeatherInfo);
-    }
-
-    public void setJsonObjectCurrentWeather(JsonObject jsonObject) {
-        this.jsonObjectCurrentWeather = jsonObject;
-    }
-
-    public String getCoordinates() {
+        this.jsonObjectCurrentWeather = jsonObjectCurrentWeather;
         setCoordinates();
-        return this.coordinates;
+        setCurrentTemp();
     }
 
-    public void setCoordinates() {
+    private void setCoordinates() {
         JsonObject jsonCoordinates = (JsonObject)jsonObjectCurrentWeather.get("coord");
         String xCoordinate = jsonCoordinates.get("lon").toString();
         String yCoordinate = jsonCoordinates.get("lat").toString();
         this.coordinates = xCoordinate + ":" + yCoordinate;
     }
 
-    public String getCurrentTemperatureString() {
+    private void setCurrentTemp() {
         JsonObject jsonObject = (JsonObject) jsonObjectCurrentWeather.get("main");
         JsonElement jsonTemp = jsonObject.getAsJsonObject().get("temp");
-        return "Current temperature: " + jsonTemp + degrees;
+        this.currentTemp = jsonTemp.getAsDouble();
     }
 
-    public String getCityCoordinatesString() {
-        return "Coordinates " + getCoordinates();
+    public String getCityCoordinates() {
+        return this.coordinates;
+    }
+
+    public double getCurrentTemp() {
+        return this.currentTemp;
+    }
+
+    @Override
+    public String toString() {
+        return "Current temperature: " + getCurrentTemp() + DEGREES;
     }
 }
