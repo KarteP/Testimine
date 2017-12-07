@@ -4,13 +4,18 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class WeatherApplicationTests {
     private static final String CITY_NAME = "Tallinn";
     private static final String INPUT_FILE = "inputTest.txt";
+    private static final Path PATH = Paths.get("src/main/java/files/inputTest.txt");
     private static final String WEATHER_INFO_STRING = "Tallinn\n" +
             "Coordinates 24.75:59.44\n" +
             "Current temperature: 1.0°C\n" +
@@ -38,13 +43,7 @@ public class WeatherApplicationTests {
     @Test
     public void testWriteWeatherInfoForCitiesInFileToDifferentFiles() throws IOException {
         application.writeWeatherInfoForCitiesInFileToDifferentFiles(INPUT_FILE);
+        assertTrue(Files.exists(PATH));
     }
 
-    /**
-    @Test
-    public void testGetWeatherInfoFromConsoleInput() throws IOException {
-        Scanner scanner = new Scanner(CITY_NAME);
-        application.getWeatherInfoFromConsoleInput(scanner);
-    }
-    **/
 }

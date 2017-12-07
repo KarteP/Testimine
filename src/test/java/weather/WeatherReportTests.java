@@ -30,4 +30,10 @@ public class WeatherReportTests {
         when(mockedReport.getWeatherInfoString(CITY)).thenReturn(WEATHER_INFO_STRING);
         assertEquals(WEATHER_INFO_STRING, mockedReport.getWeatherInfoString(CITY));
     }
+
+    @Test (expected = Exception.class)
+    public void testGetWeatherInfoStringWithEmptyCityName() throws Exception {
+        WeatherReport report = new WeatherReport();
+        report.getWeatherInfoString("");
+    }
 }
