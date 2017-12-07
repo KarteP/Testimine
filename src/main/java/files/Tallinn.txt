@@ -1,12 +1,13 @@
 Tallinn
 Coordinates 24.75:59.44
-Current temperature: 1.0°C
-2017-12-07
-Minimum temperature: -0.14°C
-Maximum temperature: 2.02°C
+Current temperature: -2.0°C
 2017-12-08
 Minimum temperature: 4.02°C
 Maximum temperature: 5.1°C
 2017-12-09
 Minimum temperature: 1.15°C
 Maximum temperature: 4.34°C
+2017-12-10
+Minimum temperature: 0.73°C
+Maximum temperature: 3.17°C
+

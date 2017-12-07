@@ -12,13 +12,13 @@ public class WeatherApplication {
 
     private WeatherReport report;
 
+
     public WeatherApplication(WeatherReport report) {
         this.report = report;
     }
 
-    public void getWeatherInfoFromConsoleInput(Scanner scanner) throws IOException {
+    public void weatherInfoFromConsoleInput(Scanner scanner) throws IOException {
         ConsoleReader consoleReader = new ConsoleReader();
-        scanner = new Scanner(System.in);
         String cityName = consoleReader.getCityNameFromUserInput(scanner);
         FileWriter fileWriter = new FileWriter();
 

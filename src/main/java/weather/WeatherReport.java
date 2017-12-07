@@ -3,7 +3,6 @@ package weather;
 import com.google.gson.JsonObject;
 import connection.HttpConnection;
 import connection.WeatherApiUrl;
-import files.FileWriter;
 
 import java.io.IOException;
 
@@ -22,8 +21,6 @@ public class WeatherReport {
 
         ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request, jsonObject3DaysWeather);
         String threeDaysWeatherInfo = threeDaysWeather.toString();
-
-        FileWriter fileWriter = new FileWriter();
 
         return cityName + "\n"
                 + cityCoordinates + "\n"

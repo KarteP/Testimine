@@ -11,7 +11,6 @@ public class ConsoleReader {
             if (scanner.hasNextLine()) {
                 cityName = scanner.next();
                 System.out.println(cityName);
-
                 break;
             } else {
                 System.out.println("Enter city name:");
