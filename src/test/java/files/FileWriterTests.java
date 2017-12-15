@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 public class FileWriterTests {
     private static final String TEST_TEXT = "Test";
@@ -44,12 +42,5 @@ public class FileWriterTests {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void testWriteToFileIsInvoked() {
-        FileWriter mockedFileWriter = mock(FileWriter.class);
-        mockedFileWriter.writeToFile("Tallinn", "test.txt");
-        verify(mockedFileWriter).writeToFile("Tallinn", "test.txt");
     }
 }
