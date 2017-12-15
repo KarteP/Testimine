@@ -20,37 +20,24 @@ public class CurrentWeatherTests {
     private static final String CITY = "Tallinn";
     private static final String COORDINATES = "24.75:59.44";
 
-    private static WeatherRequest request;
-    private static CurrentWeather mockedCurrentWeather;
+    private static WeatherRequest mockedRequest;
     private static Path path  = Paths.get("src/main/java/files/currentWeatherJson.txt");
     private static CurrentWeather currentWeather;
 
     @BeforeClass
     public static void setUpForForAllTests() throws IOException {
-        request = new WeatherRequest(CITY, "EE");
-        mockedCurrentWeather = mock(CurrentWeather.class);
+        mockedRequest = mock(WeatherRequest.class);
+        when(mockedRequest.getCity()).thenReturn(CITY);
 
         JsonParser parser = new JsonParser();
         String jsonString = Files.readAllLines(path).get(0);
         JsonObject jsonObjectCurrentWeather = parser.parse(jsonString).getAsJsonObject();
-        currentWeather = new CurrentWeather(request, jsonObjectCurrentWeather);
-    }
-
-    @Test
-    public void testMockedCurrentWeatherGetCityCoordinates() {
-        when(mockedCurrentWeather.getCityCoordinates()).thenReturn(COORDINATES);
-        assertEquals(COORDINATES, mockedCurrentWeather.getCityCoordinates());
-    }
-
-    @Test
-    public void testMockedCurrentWeatherGetCurrentTemperatureString() {
-        when(mockedCurrentWeather.getCurrentTemp()).thenReturn(CURRENT_TEMP);
-        assertEquals(CURRENT_TEMP, mockedCurrentWeather.getCurrentTemp(), 0.001);
+        currentWeather = new CurrentWeather(mockedRequest, jsonObjectCurrentWeather);
     }
 
     @Test
     public void testIfWeatherForecastIsForRightCity() {
-        assertEquals(request.city, currentWeather.city);
+        assertEquals(mockedRequest.getCity(), currentWeather.city);
     }
 
     @Test
@@ -60,11 +47,12 @@ public class CurrentWeatherTests {
 
     @Test
     public void testGetCurrentTemperature() {
-        assertEquals(1.0, currentWeather.getCurrentTemp(), 0.001);
+        assertEquals(CURRENT_TEMP, currentWeather.getCurrentTemp(), 0.001);
     }
 
     @Test
-    public void testGetCurrentTemperatureString() {
+    public void testToString() {
         assertEquals(CURRENT_TEMP_STRING, currentWeather.toString());
     }
+
 }

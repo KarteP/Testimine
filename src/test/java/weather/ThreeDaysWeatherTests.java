@@ -14,27 +14,30 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ThreeDaysWeatherTests {
-    private static final String THREE_DAYS_TEMP_STRING = "2017-12-08\n" +
-            "Minimum temperature: 0.98°C\n" +
+    private static final String THREE_DAYS_TEMP_STRING = "2017-12-07\n" +
+            "Minimum temperature: -0.12°C\n" +
+            "Maximum temperature: 0.98°C\n" +
+            "2017-12-08\n" +
+            "Minimum temperature: 2.02°C\n" +
             "Maximum temperature: 5.1°C\n" +
             "2017-12-09\n" +
             "Minimum temperature: 1.69°C\n" +
-            "Maximum temperature: 4.34°C\n" +
-            "2017-12-10\n" +
-            "Minimum temperature: 0.73°C\n" +
-            "Maximum temperature: 3.17°C\n";
+            "Maximum temperature: 4.34°C\n";
     private static final String CITY = "Tallinn";
+    private static final int NR_OF_DAY_WEATHERS_IN_LIST = 3;
 
-    private static WeatherRequest request;
+    private static WeatherRequest mockedRequest;
     private static Path path  = Paths.get("src/main/java/files/threeDaysWeatherJson.txt");
     private static ThreeDaysWeather threeDaysWeather;
 
-
     @BeforeClass
     public static void setUpForTest() throws IOException {
-        request = new WeatherRequest(CITY, "EE");
+        mockedRequest = mock(WeatherRequest.class);
+        when(mockedRequest.getCity()).thenReturn(CITY);
 
         JsonParser parser = new JsonParser();
         List<String> jsonList = Files.readAllLines(path);
@@ -43,18 +46,17 @@ public class ThreeDaysWeatherTests {
             jsonString += line;
         }
         JsonObject jsonObjectThreeDaysWeather = parser.parse(jsonString).getAsJsonObject();
-        threeDaysWeather = new ThreeDaysWeather(request, jsonObjectThreeDaysWeather);
-
+        threeDaysWeather = new ThreeDaysWeather(mockedRequest, jsonObjectThreeDaysWeather);
     }
 
     @Test
     public void testIfWeatherForecastIsForRightCity() {
-        assertEquals(request.city, threeDaysWeather.city);
+        assertEquals(mockedRequest.getCity(), threeDaysWeather.city);
     }
 
     @Test
     public void testIfWeatherForecastForThreeDaysIsGiven() {
-        assertEquals(3, threeDaysWeather.dayWeathers.size());
+        assertEquals(NR_OF_DAY_WEATHERS_IN_LIST, threeDaysWeather.dayWeathers.size());
     }
 
     @Test
@@ -65,11 +67,12 @@ public class ThreeDaysWeatherTests {
 
     @Test
     public void testIfWeatherForecastForRightDaysIsGiven() {
-        LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.of(2017, 12, 6);
         String day1 = today.plusDays(1).toString();
         String day2 = today.plusDays(2).toString();
         String day3 = today.plusDays(3).toString();
         String tempString = threeDaysWeather.toString();
+
         assertTrue(tempString.contains(day1)
                 && tempString.contains(day2)
                 && tempString.contains(day3));

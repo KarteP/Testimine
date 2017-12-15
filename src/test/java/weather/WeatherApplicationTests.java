@@ -35,9 +35,10 @@ public class WeatherApplicationTests {
     @BeforeClass
     public static void setUpForTests() throws IOException {
         mockedReport = mock(WeatherReport.class);
-        application = new WeatherApplication(mockedReport);
+        //application = new WeatherApplication(mockedReport);
 
-        when(mockedReport.getWeatherInfoString(CITY_NAME)).thenReturn(WEATHER_INFO_STRING);
+        //mockedReport.setWeatherInfoString(CITY_NAME);
+        when(mockedReport.toString()).thenReturn(WEATHER_INFO_STRING);
     }
 
     @Test
