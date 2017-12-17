@@ -31,12 +31,4 @@ public class HttpConnectionTests {
         assertTrue(url.contains("metric"));
     }
 
-    @Test
-    public void testGetWeatherInfoAsJsonDoesNotReturnNull() {
-        try {
-            assertNotNull(HttpConnection.getWeatherInfoAsJson(url));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
