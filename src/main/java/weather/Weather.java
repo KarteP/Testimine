@@ -5,7 +5,7 @@ public class Weather {
     public String countryCode;
 
     public Weather(WeatherRequest request) {
-        this.city = request.city;
-        this.countryCode = request.countryCode;
+        this.city = request.getCity();
+        this.countryCode = request.getCountryCode();
     }
 }

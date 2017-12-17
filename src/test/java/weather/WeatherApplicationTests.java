@@ -35,7 +35,7 @@ public class WeatherApplicationTests {
     @BeforeClass
     public static void setUpForTests() throws IOException {
         mockedReport = mock(WeatherReport.class);
-        //application = new WeatherApplication(mockedReport);
+        application = new WeatherApplication();
 
         //mockedReport.setWeatherInfoString(CITY_NAME);
         when(mockedReport.toString()).thenReturn(WEATHER_INFO_STRING);
@@ -46,5 +46,4 @@ public class WeatherApplicationTests {
         application.writeWeatherInfoForCitiesInFileToDifferentFiles(INPUT_FILE);
         assertTrue(Files.exists(PATH));
     }
-
 }

@@ -8,4 +8,13 @@ public class WeatherRequest {
         this.city = city;
         this.countryCode = countryCode;
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
 }
+

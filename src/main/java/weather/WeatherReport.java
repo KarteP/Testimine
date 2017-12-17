@@ -8,23 +8,37 @@ import java.io.IOException;
 
 public class WeatherReport {
 
-    public String getWeatherInfoString(String cityName) throws IOException {
-        WeatherRequest request = new WeatherRequest(cityName, "EE");
-        WeatherApiUrl weatherApiUrl = new WeatherApiUrl(request);
+    public WeatherRequest request;
+    public WeatherApiUrl weatherApiUrl;
 
+    public CurrentWeather currentWeather;
+    public ThreeDaysWeather threeDaysWeather;
+
+    public WeatherReport(WeatherRequest request) {
+        this.request = request;
+        this.weatherApiUrl = new WeatherApiUrl(request);
+    }
+
+    public void setCurrentWeather() throws IOException {
         JsonObject jsonObjectCurrentWeather = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getCurrentWeatherApiUrl());
+        this.currentWeather = new CurrentWeather(request, jsonObjectCurrentWeather);
+    }
+
+    public void setThreeDaysWeather() throws IOException {
         JsonObject jsonObject3DaysWeather = HttpConnection.getWeatherInfoAsJson(weatherApiUrl.getThreeDaysWeatherApiUrl());
+        threeDaysWeather = new ThreeDaysWeather(request, jsonObject3DaysWeather);
+    }
 
-        CurrentWeather currentWeather = new CurrentWeather(request, jsonObjectCurrentWeather);
-        String cityCoordinates = "Coordinates " + currentWeather.getCityCoordinates();
-        String currentWeatherInfo = currentWeather.toString();
+    public void setCurrentAndThreeDaysWeather(CurrentWeather currentWeather, ThreeDaysWeather threeDaysWeather) {
+        this.currentWeather = currentWeather;
+        this.threeDaysWeather = threeDaysWeather;
+    }
 
-        ThreeDaysWeather threeDaysWeather = new ThreeDaysWeather(request, jsonObject3DaysWeather);
-        String threeDaysWeatherInfo = threeDaysWeather.toString();
-
-        return cityName + "\n"
-                + cityCoordinates + "\n"
-                + currentWeatherInfo + "\n"
-                + threeDaysWeatherInfo + "\n";
+    @Override
+    public String toString() {
+        return  "City " + request.getCity() + "\n"
+                + "Coordinates " + currentWeather.getCityCoordinates() + "\n"
+                + currentWeather.toString() + "\n"
+                + threeDaysWeather.toString() + "\n";
     }
 }

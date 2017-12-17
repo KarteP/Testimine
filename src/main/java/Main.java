@@ -1,22 +1,21 @@
 import weather.WeatherApplication;
-import weather.WeatherReport;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 
-    public static void main(String[] args) {
-        WeatherReport report = new WeatherReport();
-        WeatherApplication application = new WeatherApplication(report);
+    public static void main(String[] args) throws IOException {
+        WeatherApplication application = new WeatherApplication();
         try {
             Scanner scanner = new Scanner(System.in);
             application.weatherInfoFromConsoleInput(scanner);
 
-            //application.writeWeatherInfoForCitiesInFileToDifferentFiles("input.txt");
+            application.writeWeatherInfoForCitiesInFileToDifferentFiles("input.txt");
 
         } catch (IOException e) {
-            System.out.println("Wrong city name.");
+            System.out.println("Something went wrong.");
+            System.out.println(e.getMessage());
         }
     }
 }
