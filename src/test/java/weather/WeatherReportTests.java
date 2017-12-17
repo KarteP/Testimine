@@ -56,6 +56,18 @@ public class WeatherReportTests {
     }
 
     @Test
+    public void testSetCurrentAndThreeDaysWeathers() {
+        WeatherRequest mockedRequest = mock(WeatherRequest.class);
+        CurrentWeather mockedCurrentWeather = mock(CurrentWeather.class);
+        ThreeDaysWeather mockedThreeDaysWeather = mock(ThreeDaysWeather.class);
+
+        report = new WeatherReport(mockedRequest);
+        report.setCurrentAndThreeDaysWeather(mockedCurrentWeather, mockedThreeDaysWeather);
+        assertEquals(mockedCurrentWeather, report.currentWeather);
+        assertEquals(mockedThreeDaysWeather, report.threeDaysWeather);
+    }
+
+    @Test
     public void testToString() throws IOException {
         assertEquals(WEATHER_INFO_STRING, report.toString());
     }

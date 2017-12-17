@@ -12,9 +12,5 @@ public class WeatherRequest {
     public String getCity() {
         return city;
     }
-
-    public String getCountryCode() {
-        return countryCode;
-    }
 }
 
