@@ -6,6 +6,6 @@ public class Weather {
 
     public Weather(WeatherRequest request) {
         this.city = request.getCity();
-        this.countryCode = request.getCountryCode();
+        this.countryCode = request.countryCode;
     }
 }
