@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 /**
  * Created by Kasutaja on 17.12.2017.
  */
-public class WeatherInfo {
+public class WeatherInfoJson {
 
     private String getWeatherInfo(String url) throws IOException {
         HttpURLConnection connection = HttpConnection.makeUrlConnection(url);
