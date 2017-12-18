@@ -1,6 +1,6 @@
 package httpconnection;
 
-import connection.WeatherInfo;
+import connection.WeatherInfoJson;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,9 +16,9 @@ public class WeatherInfoTests {
 
      @Test
     public void testGetWeatherInfoAsJsonDoesNotReturnNull() {
-         WeatherInfo weatherInfo = new WeatherInfo();
+         WeatherInfoJson weatherInfoJson = new WeatherInfoJson();
          try {
-             assertTrue(weatherInfo.getWeatherInfoAsJson(URL) != null);
+             assertTrue(weatherInfoJson.getWeatherInfoAsJson(URL) != null);
          } catch (IOException e) {
              e.printStackTrace();
          }
