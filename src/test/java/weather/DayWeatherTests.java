@@ -13,7 +13,7 @@ public class DayWeatherTests {
     private static DayWeather dayWeather;
 
     @Before
-    public void setUpBeforeTests() {
+    public void setUpBeforeTest() {
         dayWeather = new DayWeather(DATE, MIN_TEMP, MAX_TEMP);
     }
 
