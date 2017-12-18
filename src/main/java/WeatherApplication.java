@@ -37,7 +37,7 @@ public class WeatherApplication {
         report.setThreeDaysWeather();
 
         String cityWeatherInfo = report.toString();
-        System.out.println("city " + cityWeatherInfo);
+        System.out.println(cityWeatherInfo);
 
         FileWriter fileWriter = new FileWriter();
         fileWriter.writeToFile(cityWeatherInfo, cityName + ".txt");
