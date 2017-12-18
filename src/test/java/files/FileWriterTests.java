@@ -45,8 +45,8 @@ public class FileWriterTests {
         }
     }
 
-    @Test (expected = Exception.class)
-    public void testExceptionIsThrown() throws IOException {
+    @Test (expected = IndexOutOfBoundsException.class)
+    public void testExceptionIsThrownBecauseEmptyTextIsWritten() throws IOException {
         FileWriter writer = new FileWriter();
 
         writer.writeToFile(EMPTY_TEXT, TEST_FILE_NAME);

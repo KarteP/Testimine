@@ -77,7 +77,6 @@ public class WeatherReportTests {
         report.setCurrentWeather();
     }
 
-
     @Test (expected = Exception.class)
     public void testSetThreeDaysWeather() throws IOException {
         report.setThreeDaysWeather();
