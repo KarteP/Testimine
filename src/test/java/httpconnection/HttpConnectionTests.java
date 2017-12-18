@@ -25,4 +25,9 @@ public class HttpConnectionTests {
     public void testTempUnitIsCelsius() {
         assertTrue(URL.contains("metric"));
     }
+
+    @Test
+    public void testMakeHttpUrlConnectionDoesNotReturnNull() {
+        assertTrue(HttpConnection.makeUrlConnection(URL) != null);
+    }
 }
