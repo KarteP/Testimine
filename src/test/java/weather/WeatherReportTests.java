@@ -71,4 +71,15 @@ public class WeatherReportTests {
     public void testToString() throws IOException {
         assertEquals(WEATHER_INFO_STRING, report.toString());
     }
+
+    @Test (expected = Exception.class)
+    public void testSetCurrentWeather() throws IOException {
+        report.setCurrentWeather();
+    }
+
+
+    @Test (expected = Exception.class)
+    public void testSetThreeDaysWeather() throws IOException {
+        report.setThreeDaysWeather();
+    }
 }

@@ -53,11 +53,5 @@ public class FileWriterTests {
         Path path = Paths.get(writer.pathString);
         String data = Files.readAllLines(path).get(0);
         assertEquals(TEST_TEXT, data);
-
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
