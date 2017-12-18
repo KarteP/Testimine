@@ -1,6 +1,6 @@
 package weather;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -36,10 +36,10 @@ public class WeatherReportTests {
             "Minimum temperature: 1.15°C\n" +
             "Maximum temperature: 4.34°C\n\n";
 
-    private static WeatherReport report;
+    private WeatherReport report;
 
-    @BeforeClass
-    public static void setUpForAllTests() {
+    @Before
+    public void setUpForAllTest() {
 
         WeatherRequest mockedRequest = mock(WeatherRequest.class);
         CurrentWeather mockedCurrentWeather = mock(CurrentWeather.class);

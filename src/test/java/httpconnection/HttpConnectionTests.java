@@ -30,5 +30,4 @@ public class HttpConnectionTests {
     public void testTempUnitIsCelsius() {
         assertTrue(url.contains("metric"));
     }
-
 }

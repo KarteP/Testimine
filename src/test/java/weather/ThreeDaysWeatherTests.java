@@ -2,7 +2,7 @@ package weather;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -30,12 +30,12 @@ public class ThreeDaysWeatherTests {
     private static final String CITY = "Tallinn";
     private static final int NR_OF_DAY_WEATHERS_IN_LIST = 3;
 
-    private static WeatherRequest mockedRequest;
-    private static Path path  = Paths.get("src/main/java/files/threeDaysWeatherJson.txt");
-    private static ThreeDaysWeather threeDaysWeather;
+    private WeatherRequest mockedRequest;
+    private Path path  = Paths.get("src/main/java/files/threeDaysWeatherJson.txt");
+    private ThreeDaysWeather threeDaysWeather;
 
-    @BeforeClass
-    public static void setUpForTest() throws IOException {
+    @Before
+    public void setUpBeforeTest() throws IOException {
         mockedRequest = mock(WeatherRequest.class);
         when(mockedRequest.getCity()).thenReturn(CITY);
 

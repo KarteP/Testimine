@@ -1,6 +1,6 @@
 package weather;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -12,8 +12,8 @@ public class DayWeatherTests {
 
     private static DayWeather dayWeather;
 
-    @BeforeClass
-    public static void setUpForTests() {
+    @Before
+    public void setUpBeforeTests() {
         dayWeather = new DayWeather(DATE, MIN_TEMP, MAX_TEMP);
     }
 

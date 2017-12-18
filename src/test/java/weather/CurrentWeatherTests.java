@@ -2,7 +2,7 @@ package weather;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -20,12 +20,12 @@ public class CurrentWeatherTests {
     private static final String CITY = "Tallinn";
     private static final String COORDINATES = "24.75:59.44";
 
-    private static WeatherRequest mockedRequest;
-    private static Path path  = Paths.get("src/main/java/files/currentWeatherJson.txt");
-    private static CurrentWeather currentWeather;
+    private WeatherRequest mockedRequest;
+    private Path path  = Paths.get("src/main/java/files/currentWeatherJson.txt");
+    private CurrentWeather currentWeather;
 
-    @BeforeClass
-    public static void setUpForForAllTests() throws IOException {
+    @Before
+    public void setUpBeforeTest() throws IOException {
         mockedRequest = mock(WeatherRequest.class);
         when(mockedRequest.getCity()).thenReturn(CITY);
 
@@ -54,5 +54,4 @@ public class CurrentWeatherTests {
     public void testToString() {
         assertEquals(CURRENT_TEMP_STRING, currentWeather.toString());
     }
-
 }

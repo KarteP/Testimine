@@ -1,6 +1,6 @@
 package weather;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,10 +9,10 @@ public class WeatherRequestTests {
     private static final String CITY_NAME = "Tallinn";
     private static final String COUNTRY_CODE = "EE";
 
-    private static WeatherRequest request;
+    private WeatherRequest request;
 
-    @BeforeClass
-    public static void setUpForTests() {
+    @Before
+    public void setUpBeforeTest() {
         request = new WeatherRequest(CITY_NAME, COUNTRY_CODE);
     }
 
